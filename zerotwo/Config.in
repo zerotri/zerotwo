@@ -1,0 +1,1 @@
+# source "$BR2_EXTERNAL_ZEROTWO_PATH/packages/linux-mods/Config.in"
