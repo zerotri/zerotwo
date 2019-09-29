@@ -1,0 +1,10 @@
+config BR2_PACKAGE_WAMR
+    bool "wamr"
+    help
+        WebAssembly Micro Runtime (WAMR) is a standalone WebAssembly (WASM) 
+        runtime with small footprint. It includes a few parts as below:
+        
+        - A WebAssembly VM core (namely iwasm)
+        - The supporting API's for the WASM applications
+        - A mechanism for dynamic management of the WASM application
+
