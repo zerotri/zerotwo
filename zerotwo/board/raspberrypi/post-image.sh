@@ -9,6 +9,19 @@ BOARD_ARCH=""
 for arg in "$@"
 do
 	case "${arg}" in
+		--enable-usb-gadget-console)
+		if ! grep -qE '^dtoverlay=' "${BINARIES_DIR}/rpi-firmware/config.txt"; then
+			echo "Adding 'dtoverlay=dwc2' to config.txt (enables usb gadget serial console)."
+			cat << __EOF__ >> "${BINARIES_DIR}/rpi-firmware/config.txt"
+
+# enables usb gadget serial console on ttyGS0
+dtoverlay=dwc2
+__EOF__
+		fi
+		if ! grep -qE 'modules-load=dwc2,g_serial console=ttyGS0' "${BINARIES_DIR}/rpi-firmware/cmdline.txt"; then
+			sed -i "s/rootwait/rootwait modules-load=dwc2,g_serial console=ttyGS0/g" -i "${BINARIES_DIR}/rpi-firmware/cmdline.txt"
+		fi
+		;;
 		--add-pi3-miniuart-bt-overlay)
 		if ! grep -qE '^dtoverlay=' "${BINARIES_DIR}/rpi-firmware/config.txt"; then
 			echo "Adding 'dtoverlay=pi3-miniuart-bt' to config.txt (fixes ttyAMA0 serial console)."
